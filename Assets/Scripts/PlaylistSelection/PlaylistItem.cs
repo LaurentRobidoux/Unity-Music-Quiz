@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Music
 {
@@ -16,10 +17,18 @@ namespace Music
         [SerializeField]
         private TextMeshProUGUI titleText;
 
-        public void Init(Playlist playlist)
+        private Action<Playlist> callback;
+
+        public void Init(Playlist playlist, Action<Playlist> onClick)
         {
             this.playlist = playlist;
             titleText.text = playlist.Name;
+            this.callback = onClick;
+        }
+
+        public void OnClick()
+        {
+            callback.Invoke(playlist);
         }
     }
 }
