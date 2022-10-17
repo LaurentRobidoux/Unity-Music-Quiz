@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd94fb3cfe6228488755a5eab8933a6, type: 3}
   m_Name: Playlist Cache Stategy
   m_EditorClassIdentifier: 
-  backup: {fileID: 0}
+  backup: {fileID: 11400000, guid: de8d06c15b55a2d4d9b212d178b8bbf9, type: 2}
