@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Music.Entities;
+using Music.Repositories.Strategies;
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Music.Repositories
 {
@@ -14,39 +10,19 @@ namespace Music.Repositories
     public class AudioRepository : ScriptableObject
     {
         [SerializeField]
-        private string directoryPath;
+        private BaseStrategy strategy;
 
-        public string DataPath
+        [SerializeField]
+        internal PersistantDirectory persistantDirectory;
+
+        public IEnumerator GetAudioClip(Song song, Action<AudioClip> callback, Action onError = null)
         {
-            get
-            {
-                return Path.Combine(Application.persistentDataPath, directoryPath);
-            }
+            yield return strategy.GetAudioClip(this, song, callback, onError);
         }
 
-        public string BuildPath(string filename)
+        public void Unload(AudioClip clip)
         {
-            return Path.Combine(DataPath, filename);
-        }
-
-        public IEnumerator GetAudioClip(string url, Action<AudioClip> callback, Action onError = null)
-        {
-            //Todo : support all types
-            using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV))
-            {
-                yield return request.SendWebRequest();
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    onError.Invoke();
-                }
-                else
-                {
-                    //save to persistant path
-                    DownloadHandlerAudioClip downloadHandler = (DownloadHandlerAudioClip)request.downloadHandler;
-                    //   File.WriteAllBytes(BuildPath(url.GetHashCode().ToString()), request.downloadHandler.data);
-                    callback.Invoke(downloadHandler.audioClip);
-                }
-            }
+            strategy.Unload(clip);
         }
     }
 }

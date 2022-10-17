@@ -1,8 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
+
 namespace Music.Entities
 {
-
+    [Serializable]
     public partial class Song
     {
         [JsonProperty("id")]
@@ -15,9 +16,9 @@ namespace Music.Entities
         public string Artist { get; set; }
 
         [JsonProperty("picture")]
-        public Uri Picture { get; set; }
+        public string Picture { get; set; }
 
         [JsonProperty("sample")]
-        public Uri Sample { get; set; }
+        public string Sample { get; set; }
     }
 }

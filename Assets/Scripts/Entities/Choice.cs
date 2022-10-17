@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Music.Entities
 {
+    [Serializable]
     public partial class Choice
     {
         [JsonProperty("artist")]

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Music.Entities
 {
+    [Serializable]
     public partial class Question
     {
         [JsonProperty("id")]
@@ -19,5 +20,10 @@ namespace Music.Entities
 
         [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; set; }
+
+        public Choice Answer
+        {
+            get => Choices[AnswerIndex];
+        }
     }
 }

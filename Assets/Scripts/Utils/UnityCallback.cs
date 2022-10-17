@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.Utils
+namespace Music.Utils
 {
     public class UnityCallback : MonoBehaviour
     {
@@ -15,6 +10,13 @@ namespace Assets.Scripts.Utils
         private void OnEnable()
         {
             onEnable.Invoke();
+        }
+
+        public UnityEvent onDisable;
+
+        private void OnDisable()
+        {
+            onDisable.Invoke();
         }
     }
 }
